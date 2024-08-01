@@ -48,20 +48,20 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetAllHandler is for getting all data from the jeans database
-func GetAllHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("GetAllHandler Serving:", r.URL.Path, "from", r.Host)
+// func GetAllHandler(w http.ResponseWriter, r *http.Request) {
+// 	log.Println("GetAllHandler Serving:", r.URL.Path, "from", r.Host)
 
-	dates := db.ListAllJeans()
+// 	dates := db.ListAllJeans()
 
-	data := jeans.Data{
-		JeansData: dates,
-	}
+// 	data := jeans.Data{
+// 		JeansData: dates,
+// 	}
 
-	err := tmpl.ExecuteTemplate(w, "post.html", data)
-	if err != nil {
-		fmt.Println(err)
-	}
-}
+// 	err := tmpl.ExecuteTemplate(w, "post.html", data)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// }
 
 // SliceToJSON encodes a slice with JSON records
 func SliceToJSON(slice interface{}, w io.Writer) error {
