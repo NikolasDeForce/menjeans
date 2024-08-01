@@ -33,8 +33,15 @@ func init() {
 
 func MainHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Main Handler Serving:", r.URL.Path, "from", r.Host, "with method", r.Method)
+	w.WriteHeader(http.StatusOK)
 
-	err := tmpl.ExecuteTemplate(w, "index.html", nil)
+	dates := db.ListAllJeans()
+
+	data := jeans.Data{
+		JeansData: dates,
+	}
+
+	err := tmpl.ExecuteTemplate(w, "index.html", data)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -43,7 +50,6 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 // GetAllHandler is for getting all data from the jeans database
 func GetAllHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("GetAllHandler Serving:", r.URL.Path, "from", r.Host)
-	w.WriteHeader(http.StatusOK)
 
 	dates := db.ListAllJeans()
 
