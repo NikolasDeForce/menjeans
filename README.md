@@ -1,4 +1,4 @@
-# RESTful app MENJEANS with DB PostgreSQL
+# RESTful app MYJEANS with DB PostgreSQL
 To Start - `docker-compose up` and `go run main.go`
 
 Main
