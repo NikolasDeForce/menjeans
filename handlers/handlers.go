@@ -35,33 +35,43 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Main Handler Serving:", r.URL.Path, "from", r.Host, "with method", r.Method)
 	w.WriteHeader(http.StatusOK)
 
-	dates := db.ListAllJeans()
-
-	data := jeans.Data{
-		JeansData: dates,
-	}
-
-	err := tmpl.ExecuteTemplate(w, "index.html", data)
+	err := tmpl.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-// GetAllHandler is for getting all data from the jeans database
-// func GetAllHandler(w http.ResponseWriter, r *http.Request) {
-// 	log.Println("GetAllHandler Serving:", r.URL.Path, "from", r.Host)
+// MenJeansHandler is for getting all data for men from the jeans database
+func MenJeansHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("MenJeansHandler Serving:", r.URL.Path, "from", r.Host)
 
-// 	dates := db.ListAllJeans()
+	dates := db.ListAllMenJeans()
 
-// 	data := jeans.Data{
-// 		JeansData: dates,
-// 	}
+	data := jeans.Data{
+		MenJeansData: dates,
+	}
 
-// 	err := tmpl.ExecuteTemplate(w, "post.html", data)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// }
+	err := tmpl.ExecuteTemplate(w, "menjeans.html", data)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// MenJeansHandler is for getting all data for women from the jeans database
+func WomenJeansHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("WomenJeansHandler Serving:", r.URL.Path, "from", r.Host)
+
+	dates := db.ListAllWomenJeans()
+
+	data := jeans.Data{
+		WomenJeansData: dates,
+	}
+
+	err := tmpl.ExecuteTemplate(w, "womenjeans.html", data)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
 
 // SliceToJSON encodes a slice with JSON records
 func SliceToJSON(slice interface{}, w io.Writer) error {

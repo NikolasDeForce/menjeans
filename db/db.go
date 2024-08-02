@@ -52,8 +52,8 @@ func ConnectPostgres() *sql.DB {
 	return db
 }
 
-// ListAllJeans if for returning all jeans from the database table
-func ListAllJeans() []Jeans {
+// ListAllMenJeans if for returning all jeans from the database table
+func ListAllMenJeans() []Jeans {
 	db := ConnectPostgres()
 	if db == nil {
 		log.Println("Cannot connect to PostreSQL!")
@@ -63,6 +63,35 @@ func ListAllJeans() []Jeans {
 	defer db.Close()
 
 	rows, err := db.Query("SELECT * FROM menjeans \n")
+	if err != nil {
+		log.Println(err)
+		return []Jeans{}
+	}
+
+	all := []Jeans{}
+	var c1 int
+	var c2, c3, c4, c5 string
+
+	for rows.Next() {
+		err = rows.Scan(&c1, &c2, &c3, &c4, &c5)
+		temp := Jeans{c1, c2, c3, c4, c5}
+		all = append(all, temp)
+	}
+
+	return all
+}
+
+// ListAllWomenJeans if for returning all jeans from the database table
+func ListAllWomenJeans() []Jeans {
+	db := ConnectPostgres()
+	if db == nil {
+		log.Println("Cannot connect to PostreSQL!")
+		db.Close()
+		return []Jeans{}
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT * FROM womenjeans \n")
 	if err != nil {
 		log.Println(err)
 		return []Jeans{}
